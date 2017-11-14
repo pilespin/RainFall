@@ -1,0 +1,30 @@
+struct _IO_FILE {
+    int32_t e0;
+};
+
+// --------------------- Global Variables ---------------------
+
+char * g1; // 0x8049960
+
+// ------------------------ Functions -------------------------
+
+// Address range: 0x8048521 - 0x804860f
+int main(int argc, char ** argv) {
+    char * mem = malloc(8); // 0x8048531
+    *(int32_t *)mem = 1;
+    char * mem2 = malloc(8); // 0x804854b
+    int32_t * str = (int32_t *)((int32_t)mem + 4); // 0x8048556_0
+    *str = (int32_t)mem2;
+    char * mem3 = malloc(8); // 0x8048560
+    *(int32_t *)mem3 = 2;
+    char * mem4 = malloc(8); // 0x804857a
+    int32_t * str2 = (int32_t *)((int32_t)mem3 + 4); // 0x8048585_0
+    *str2 = (int32_t)mem4;
+    int32_t v1 = (int32_t)argv; // 0x8048588_0
+    strcpy((char *)*str, (char *)*(int32_t *)(v1 + 4));
+    strcpy((char *)*str2, (char *)*(int32_t *)(v1 + 8));
+    struct _IO_FILE * file = fopen("/home/user/level8/.pass", "r"); // 0x80485d3
+    fgets((char *)&g1, 68, file);
+    puts("~~");
+    return 0;
+}
