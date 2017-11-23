@@ -1,0 +1,28 @@
+
+$ objdump -d `ls` | grep '<.*>:' | grep -v '<_.*>:'
+08048400 <printf@plt-0x10>:
+08048410 <printf@plt>:
+08048420 <free@plt>:
+08048430 <strdup@plt>:
+08048440 <fgets@plt>:
+08048450 <fwrite@plt>:
+08048460 <strcpy@plt>:
+08048470 <malloc@plt>:
+08048480 <system@plt>:
+08048540 <frame_dummy>:
+08048564 <main>:
+
+	$ ./level8
+(nil), (nil)
+	auth AAAAAAAAAAAAAA
+0x804a008, (nil)
+	service
+0x804a008, 0x804a018
+	login
+Password:
+0x804a008, 0x804a018
+	service
+0x804a008, 0x804a028
+	login
+
+##### nice #####

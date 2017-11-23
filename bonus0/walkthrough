@@ -1,0 +1,14 @@
+
+objdump -d `ls` | grep '<.*>:' | grep -v '<_.*>:'
+08048370 <read@plt-0x10>:
+08048380 <read@plt>:
+08048390 <strcat@plt>:
+080483a0 <strcpy@plt>:
+080483b0 <puts@plt>:
+080483d0 <strchr@plt>:
+080483f0 <strncpy@plt>:
+08048490 <frame_dummy>:
+080484b4 <p>:
+0804851e <pp>:
+080485a4 <main>:
+

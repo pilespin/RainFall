@@ -1,0 +1,40 @@
+
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+
+// ------------------- Function Prototypes --------------------
+
+int p(char * str2, int str);
+int pp(char * str);
+
+// ------------------------ Functions -------------------------
+
+// Address range: 0x80484b4 - 0x804851d
+int p(char * str2, int str) {
+	puts((char *)str);
+	int buf;
+	read(0, (char *)&buf, 0x1000);
+	*strchr((char *)&buf, 10) = 0;
+	return (int)strncpy(str2, (char *)&buf, 20);
+}
+
+// Address range: 0x804851e - 0x80485a3
+int pp(char * str) {
+	int str2;
+	p((char *)&str2, (int)" - ");
+	int str3;
+	p((char *)&str3, (int)" - ");
+	strcpy(str, (char *)&str2);
+	*(int16_t *)(strlen(str) + (int)str) = 32;
+	return (int)strcat(str, (char *)&str3);
+}
+
+// Address range: 0x80485a4 - 0x80485cf
+int main(int argc, char ** argv) {
+	int str;
+	pp((char *)&str);
+	puts((char *)&str);
+	return 0;
+}
